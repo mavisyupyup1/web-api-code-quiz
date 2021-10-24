@@ -12,19 +12,20 @@
 <body>
 <header> 
     <div class="header">
-        <div id="highscores"><a href="highscore.html">View High Scores</a></div>
-        <div class="timer">Time: <span id="time">0</span>
+        <div class="highscores"><a href="highscore.html">View High Scores</a></div>
+        <div class="timer">Time: <span id="time">120</span>
         </div>
+        <div class="timeup" style="display: none;">Time is up! Let's see how you did!</div>
 </header>
     <div class="wrapper">
-        <div class="start" id="start-screen">
+        <div class="start" id="start-screen" style="display: ;">
             <h1 id="quiz-title">JavaScript Coding Quiz</h1>
             <p id="quiz-intro">
-                Try to answer the following multi-choices questions on JavaScript fundamentals. You have 120 seconds to answer all the questions. Please keep in mind that incorrect answers will penalize your score/time by 10 seconds. Click Start Quiz to start. Good Luck!
+                Let's test your knowledge on JavaScript fundamentals. You have 120 seconds and all questions are multiple choices. Once you make a choice, you will see if your answer is correct. Please keep in mind that incorrect answers will penalize your score/time by 10 seconds. Click Start Quiz to start.<br> Good Luck!
             </p>
             <button class="button"id = "start">Start Quiz</button>
         </div>
-        <div id="questions" class="hide" data-state="hidden">
+        <div id="questions" class="hide" data-state="hidden" style="display: none;">
             <h2 id="question-title">dfs</h2>
             <ol>
                 <button class="button" id="choice1">qwe</button>
@@ -33,7 +34,16 @@
                 <button class="button" id="choice4">qweqx</button>
             </ol>
             <p id="correct" data-state="hidden">Correct!</p>
-            <p id="incorrect" data-state="hidden">Incorrect!</p>
+            <p id="incorrect" data-state="hidden">Incorrect! Correct Answer is <span id="correct-answer"></span></p>
+        </div>
+        <div class="end hide" id="end-screen" style="display: none;">
+            <h1>All Done</h1>
+            <p id="final-score">Your final score is <span id="time-left"></span></p>
+            <div class="initials-wrapper">
+            <label for="enter-initials">Enter Initials:</label>
+            <input type="text" placeholder="Your Initials" name="enter-initials" id="initlas">
+            <button class="button" type="submit">Submit</button>
+            </div>
         </div>
     </div>
 </body>
