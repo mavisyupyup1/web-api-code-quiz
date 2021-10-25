@@ -12,9 +12,10 @@
 
 body{
     columns: var(--primary-color);
-    margin: 30px;
+
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 .header{
@@ -30,13 +31,12 @@ text-decoration: none;
 }
 
 h1{
-    text-align: center;
+    text-align: left;
 }
 #quiz-intro{   
-    font-size: 1.8vw;
+    font-size: 1.5vw;
     line-height: 1.2;
-    padding: 20px;
-    text-align:center;
+    text-align:left;
     
 }
 #correct,#incorrect{
@@ -50,24 +50,21 @@ h1{
 }
 
 .wrapper{
-    text-align: center;
     justify-content: center;
     margin: 5% 20%;
 }
 ol{
     display: flex;
     flex-direction: column;
-    margin: auto;
-    padding: auto;
-
 }
 .button {
     color: white;
     padding: 5px 5px;
-    margin: 10px;
+    margin: 6px 0px;
     background: var(--secondary-color);
     border-radius: 4px;
     width: fit-content;
+    align-content: left;
   }
 .button:hover{
     background:var(--tertiary-color)

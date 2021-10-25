@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Code Quiz</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -13,7 +13,7 @@
 <header> 
     <div class="header">
         <div class="highscores"><a href="highscore.html">View High Scores</a></div>
-        <div class="timer">Time: <span id="time">120</span>
+        <div class="timer">Time<span id="time"></span>
         </div>
         <div class="timeup" style="display: none;">Time is up! Let's see how you did!</div>
 </header>
@@ -25,16 +25,18 @@
             </p>
             <button class="button"id = "start">Start Quiz</button>
         </div>
-        <div id="questions" class="hide" data-state="hidden" style="display: none;">
+        <div id="questions" class="hide" data-state="hidden" style="display:none;">
             <h2 id="question-title">dfs</h2>
             <ol>
-                <button class="button" id="choice1">qwe</button>
-                <button class="button" id="choice2">qew</button>
-                <button class="button" id="choice3">qwe</button>
-                <button class="button" id="choice4">qweqx</button>
+                <button class="button" id="choice0">qwe</button>
+                <button class="button" id="choice1">qew</button>
+                <button class="button" id="choice2">qwe</button>
+                <button class="button" id="choice3">qweqx</button>
             </ol>
+            <div class="result">
             <p id="correct" data-state="hidden">Correct!</p>
             <p id="incorrect" data-state="hidden">Incorrect! Correct Answer is <span id="correct-answer"></span></p>
+            </div>
         </div>
         <div class="end hide" id="end-screen" style="display: none;">
             <h1>All Done</h1>
@@ -46,6 +48,7 @@
             </div>
         </div>
     </div>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
