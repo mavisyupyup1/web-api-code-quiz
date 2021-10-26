@@ -69,16 +69,24 @@ var submitEl = document.getElementById("submit");
 var highScoreEl = document.getElementById("high-score");
 var goBackEl = document.getElementById("go-back");
 var initialsEl = document.getElementById("initials");
+var listOfHighScoreEl = document.getElementById("list-of-scores");
+console.log(listOfHighScoreEl);
 var timeLeft;
-
+var finalScore;
+//intro screen{
+var introScreen =function(){
+    startScreenEl.style.display ="block";
+    questionsEl.style.display ="none";
+    highScoreEl.style.display="none";
+}
 //start new quiz and start the timer
 
 var startQuizHandler = function(){
+    questionIndex=0;
     countDown(); 
     timerEl.style.display="block";
     startScreenEl.style.display = "none";
     questionsEl.style.display = "block";
-    
     nextQuestion();
 }
 var countDown = function(){
@@ -88,7 +96,8 @@ var countDown = function(){
         if(timeLeft>0){
             timerEl.textContent = "Time: " + timeLeft;
             timeLeft--;
-        } else if (timeLeft === 0){
+        } 
+        if (timeLeft === 0 && questionIndex < questionInfo.length-1){
             timerEl.textContent =" is Up! Let's see how you did.";
             clearInterval(timeInterval);
             endQuiz();
@@ -138,21 +147,53 @@ var endQuiz=function(){
     endQuizEl.style.display="block";
     timerEl.style.display="none";
     timeLeftEl.textContent = "Your score is "+ timeLeft;
-
+    finalScore = timeLeft;
+    console.log(finalScore);
 };
-var highScore = function (event) {
+var storeHighScore = function (event) {
     event.preventDefault();
     endQuizEl.style.display="none";
     highScoreEl.style.display="block";
-    
-    localStorage.setItem=("Initials: " + );
-    localStorage.setItem=("Score: " + timeLeft)
+    var savedHighScore = localStorage.getItem("finalScore");
+    var highScoresArray;
+    if (!savedHighScore){
+        highScoresArray=[];
+    }else{
+        highScoresArray = JSON.parse(savedHighScore);
+    }
+
+    var myScore ={
+        initials: initialsEl.value,
+        score: finalScore
+    };
+    console.log(myScore);
+    highScoresArray.push(myScore);
+    console.log(highScoresArray)
+
+    //stringify array to store in local storage
+    var highScoreArrayString = JSON.stringify(highScoresArray);
+    window.localStorage.setItem("high scores", highScoreArrayString);
+    showHighScore();
 };
+function showHighScore() {
+ 
+    var savedHighScores = localStorage.getItem("high scores");
+    if (!savedHighScores) {
+        return;
+    }
+    console.log("hi"+savedHighScores);
+    for(var i=0; i<savedHighScores.length;i++)
+    var eachHighScore = document.createElement("p");
+    console.log
+    eachHighScore.textContent = savedHighScores[i];
+    listOfHighScoreEl.appendChild(eachHighScore);
+
+}
 //set timer off 
 startQuizEl.addEventListener("click",startQuizHandler);
 choice0El.addEventListener("click",chooseA);
 choice1El.addEventListener("click",chooseB);
 choice2El.addEventListener("click",chooseC);
 choice3El.addEventListener("click",chooseD);
-submitEl.addEventListener("click",highScore);
-goBackEl.addEventListener("click",startQuizHandler);
+submitEl.addEventListener("click",storeHighScore);
+goBackEl.addEventListener("click",introScreen);

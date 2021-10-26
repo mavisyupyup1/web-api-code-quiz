@@ -56,6 +56,7 @@ h1{
 ol{
     display: flex;
     flex-direction: column;
+    padding-inline-start: 0px;
 }
 .button {
     color: white;
