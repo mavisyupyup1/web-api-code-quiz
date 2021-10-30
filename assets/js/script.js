@@ -103,7 +103,7 @@ var countDown = function(){
             timeLeft--;
         } 
         if (timeLeft === 0 && questionIndex <= questionInfo.length-1){
-            timerEl.textContent =" is Up! Let's see how you did.";
+            alert("Time is up! Let's see how you did.")
             clearInterval(timeInterval);
             endQuiz();
         }
