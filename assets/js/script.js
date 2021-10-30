@@ -42,7 +42,7 @@ var questionInfo = [
     },   
     {
     question:"What When a user views a page containing a JavaScript program, which machine actually executes the script? are variables used for in JavaScript Programs?",
-    choices:["a.The User's machine running a Web browser","b. The Web serve","c.A central machine deep within Netscape's corporate offices","d.None of the above"],
+    choices:["a.The User's machine running a Web browser","b. The Web server","c.A central machine deep within Netscape's corporate offices","d.None of the above"],
     answer:"a.The User's machine running a Web browser"
     },
     {
@@ -70,24 +70,29 @@ var highScoreEl = document.getElementById("high-score");
 var goBackEl = document.getElementById("go-back");
 var initialsEl = document.getElementById("initials");
 var listOfHighScoreEl = document.getElementById("list-of-scores");
-console.log(listOfHighScoreEl);
+var scoresClearedEl = document.getElementById("scores-cleared");
+var clearScoreBtn = document.getElementById("clear-score");
 var timeLeft;
-var finalScore;
+var finalScore = document.getElementById("time-left");
+var viewHighScoreBtn = document.getElementById("view-high-scores")
 //intro screen{
 var introScreen =function(){
     startScreenEl.style.display ="block";
     questionsEl.style.display ="none";
     highScoreEl.style.display="none";
+    viewHighScoreBtn.style.display="block";
 }
 //start new quiz and start the timer
 
 var startQuizHandler = function(){
     questionIndex=0;
-    countDown(); 
     timerEl.style.display="block";
     startScreenEl.style.display = "none";
     questionsEl.style.display = "block";
+    viewHighScoreBtn.style.display="block";
+    countDown(); 
     nextQuestion();
+
 }
 var countDown = function(){
     timeLeft = 150;
@@ -97,15 +102,14 @@ var countDown = function(){
             timerEl.textContent = "Time: " + timeLeft;
             timeLeft--;
         } 
-        if (timeLeft === 0 && questionIndex < questionInfo.length-1){
+        if (timeLeft === 0 && questionIndex <= questionInfo.length-1){
             timerEl.textContent =" is Up! Let's see how you did.";
             clearInterval(timeInterval);
             endQuiz();
         }
-
     },1000);  
 }
-var questionIndex =0;
+var questionIndex = 0;
 //next question function
 var nextQuestion =function(){
     questionTitleEl.textContent = questionInfo[questionIndex].question;
@@ -117,8 +121,6 @@ var nextQuestion =function(){
 };
 function checkAnswer (userAnswer) {
     resultEl.style.display = "block";
-    console.log(questionInfo[questionIndex].answer);
-    console.log(questionInfo[questionIndex].choices[userAnswer]);
     if(questionInfo[questionIndex].answer === questionInfo[questionIndex].choices[userAnswer]){
         resultEl.textContent = "Correct!";
 
@@ -146,48 +148,64 @@ var endQuiz=function(){
     resultEl.style.display = "none";
     endQuizEl.style.display="block";
     timerEl.style.display="none";
-    timeLeftEl.textContent = "Your score is "+ timeLeft;
-    finalScore = timeLeft;
+    if (timeLeft>=0){finalScore = timeLeft;
+    }else{finalScore = 0}
+    timeLeftEl.textContent = finalScore;
     console.log(finalScore);
 };
 var storeHighScore = function (event) {
     event.preventDefault();
+
+    if(!initialsEl){
+        alert("Please enter your initials!");
+        return;
+    }
     endQuizEl.style.display="none";
     highScoreEl.style.display="block";
-    var savedHighScore = localStorage.getItem("finalScore");
-    var highScoresArray;
-    if (!savedHighScore){
-        highScoresArray=[];
+    listOfHighScoreEl.style.display="block"
+    scoresClearedEl.style.display="none";
+//store score in local storage
+    var savedHighScores = localStorage.getItem("high scores");
+    // var highScoresArray;
+    var scoresArray=[];
+    if(!savedHighScores){
+       scoresArray=[]
     }else{
-        highScoresArray = JSON.parse(savedHighScore);
-    }
-
+        scoresArray=JSON.parse(savedHighScores);
+   }
+    // highScoresArray = JSON.parse(savedHighScore);
     var myScore ={
         initials: initialsEl.value,
         score: finalScore
     };
-    console.log(myScore);
-    highScoresArray.push(myScore);
-    console.log(highScoresArray)
+    scoresArray.push(myScore);
+  //stringify array to store in local storage
+    localStorage.setItem("high scores", JSON.stringify(scoresArray));
+//reset initials input to be empty for next user
+initialsEl.value = "";
+showHighScore();
+}
+var showHighScore = function(){
+    timerEl.style.display="none";
+    startScreenEl.style.display = "none";
+    questionsEl.style.display = "none";
+    highScoreEl.style.display="block";
+    listOfHighScoreEl.style.display="block";
+    scoresClearedEl.style.display="none";
+    viewHighScoreBtn.style.display="none";
+    var savedHighScores = JSON.parse(localStorage.getItem("high scores"));
+    for (var i=0; i<savedHighScores.length;i++){
+    var eachHighScore = document.getElementById("each-score");
+    eachHighScore.innerHTML += savedHighScores[i].initials + ": " + savedHighScores[i].score + "<br/>";
+    listOfHighScoreEl.appendChild(eachHighScore);   
+}
 
-    //stringify array to store in local storage
-    var highScoreArrayString = JSON.stringify(highScoresArray);
-    window.localStorage.setItem("high scores", highScoreArrayString);
-    showHighScore();
-};
-function showHighScore() {
- 
-    var savedHighScores = localStorage.getItem("high scores");
-    if (!savedHighScores) {
-        return;
-    }
-    console.log("hi"+savedHighScores);
-    for(var i=0; i<savedHighScores.length;i++)
-    var eachHighScore = document.createElement("p");
-    console.log
-    eachHighScore.textContent = savedHighScores[i];
-    listOfHighScoreEl.appendChild(eachHighScore);
-
+}
+var clearHighScores =function(){
+    listOfHighScoreEl.style.display="none"
+    scoresClearedEl.style.display="block";
+    localStorage.removeItem("high scores");
+    scoresClearedEl.innerHTML="High Scores Cleared!"
 }
 //set timer off 
 startQuizEl.addEventListener("click",startQuizHandler);
@@ -197,3 +215,5 @@ choice2El.addEventListener("click",chooseC);
 choice3El.addEventListener("click",chooseD);
 submitEl.addEventListener("click",storeHighScore);
 goBackEl.addEventListener("click",introScreen);
+clearScoreBtn.addEventListener("click",clearHighScores);
+viewHighScoreBtn.addEventListener("click",showHighScore)

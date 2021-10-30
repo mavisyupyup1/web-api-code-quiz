@@ -7,5 +7,17 @@ This application is a timed code quiz on JavaScript fundamentals. When user star
 * CSS
 * JavaScript
 
+## Demo
+* initial screen
+![screenshot1](assets/images/ScreenShot_1.png)
+* Start quiz
+![screenshot2](assets/images/ScreenShot_2.png)
+* Score Screen
+![screenshot4](assets/images/ScreenShot_4.png)
+* List of high Scores Screen
+![screenshot5](assets/images/ScreenShot_5.png)
+* Clear high Scores Screen
+![screenshot6](assets/images/ScreenShot_6.png)
+
 ## Website
  https://mavisyupyup1.github.io/web-api-code-quiz/

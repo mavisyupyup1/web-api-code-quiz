@@ -16,11 +16,11 @@
 <body>
 <header> 
     <div class="header">
-        <div class="highscores"><a href="highscore.html">View High Scores</a></div>
+        <a href="#" id="view-high-scores" style="display:;">View High Scores</a>
         <div class="timer" id="time" style="display: none;"></div>
 </header>
     <div class="wrapper">
-        <div class="start" id="start-screen" style="display: ;">
+        <div class="start" id="start-screen" style="display:;">
             <h1 id="quiz-title">JavaScript Coding Quiz</h1>
             <p id="quiz-intro">
                 Let's test your knowledge on JavaScript fundamentals. You have 150 seconds and all questions are multiple choices. Once you make a choice, you will see if your answer is correct. Please keep in mind that incorrect answers will penalize your score/time by 10 seconds. Click Start Quiz to start.<br> Good Luck!
@@ -30,10 +30,10 @@
         <div id="questions" class="hide" data-state="hidden" style="display:none;">
             <h2 id="question-title"></h2>
             <ol>
-                <button class="button" id="choice0">qwe</button>
-                <button class="button" id="choice1">qew</button>
-                <button class="button" id="choice2">qwe</button>
-                <button class="button" id="choice3">qweqx</button>
+                <button class="button" id="choice0"></button>
+                <button class="button" id="choice1"></button>
+                <button class="button" id="choice2"></button>
+                <button class="button" id="choice3"></button>
             </ol>
             <div id="result" style="display: none;">
             <p id="correct" data-state="hidden">Correct!</p>
@@ -51,7 +51,12 @@
         </div>
         <div id="high-score" style="display: none;">
         <h1>High Score</h1>
-        <ul id="list-of-scores"></ul>
+        <div id="list-of-scores" style="display: none;">
+            <!-- append a list of high scores here  -->
+            <div id="each-score"></div>
+        </div>
+
+        <div id="scores-cleared" style="display: none;"></div>
         <button class="button" id="go-back">Go Back</button>
         <button class="button" id="clear-score">Clear high scores</button>
         </div>
