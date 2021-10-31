@@ -86,6 +86,7 @@ var introScreen =function(){
 
 var startQuizHandler = function(){
     questionIndex=0;
+    timeLeft = 150;
     timerEl.style.display="block";
     startScreenEl.style.display = "none";
     questionsEl.style.display = "block";
@@ -95,19 +96,21 @@ var startQuizHandler = function(){
 
 }
 var countDown = function(){
-    timeLeft = 150;
+    
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function(){
-        if(timeLeft>0){
+        if(timeLeft >= 0){
             timerEl.textContent = "Time: " + timeLeft;
             timeLeft--;
-        } 
-        if (timeLeft === 0 && questionIndex <= questionInfo.length-1){
+            if (timeLeft === 0 && questionIndex <= questionInfo.length-1){
             alert("Time is up! Let's see how you did.")
             clearInterval(timeInterval);
             endQuiz();
-        }
-    },1000);  
+            } 
+            if(questionIndex ===questionInfo.length){
+                clearInterval(timeInterval);
+            }
+    }},1000);  
 }
 var questionIndex = 0;
 //next question function
@@ -151,8 +154,10 @@ var endQuiz=function(){
     if (timeLeft>=0){finalScore = timeLeft;
     }else{finalScore = 0}
     timeLeftEl.textContent = finalScore;
+    timeLeft =150;
     console.log(finalScore);
 };
+
 var storeHighScore = function (event) {
     event.preventDefault();
 
