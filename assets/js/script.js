@@ -197,10 +197,10 @@ var showHighScore = function(){
     highScoreEl.style.display="block";
     listOfHighScoreEl.style.display="block";
     scoresClearedEl.style.display="none";
-    viewHighScoreBtn.style.display="none";
+    viewHighScoreBtn.style.display="block";
     var savedHighScores = JSON.parse(localStorage.getItem("high scores"));
     for (var i=0; i<savedHighScores.length;i++){
-    var eachHighScore = document.getElementById("each-score");
+    var eachHighScore = document.createElement("li");
     eachHighScore.innerHTML += savedHighScores[i].initials + ": " + savedHighScores[i].score + "<br/>";
     listOfHighScoreEl.appendChild(eachHighScore);   
 }
@@ -221,4 +221,12 @@ choice3El.addEventListener("click",chooseD);
 submitEl.addEventListener("click",storeHighScore);
 goBackEl.addEventListener("click",introScreen);
 clearScoreBtn.addEventListener("click",clearHighScores);
-viewHighScoreBtn.addEventListener("click",showHighScore)
+viewHighScoreBtn.addEventListener("click",function(){
+    timerEl.style.display="none";
+    startScreenEl.style.display = "none";
+    questionsEl.style.display = "none";
+    highScoreEl.style.display="block";
+    listOfHighScoreEl.style.display="block";
+    scoresClearedEl.style.display="none";
+    viewHighScoreBtn.style.display="block";
+})
